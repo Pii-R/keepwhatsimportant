@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="danfojs/lib/bundle.js"></script>
+    <script src="csv.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="title">
+        CSV Fields Removal App
+    </div>
+    <div id="instruction"> First upload the CSV file you want to process
+
+    </div>
+    <div id="input-file-div">
+
+        <input type="file" id="input-file" name="file">
+
+    </div>
+
+    <div id="schema-select">
+        <p>Select fields you want to remove</p>
+        <form action="#">
+            <label for="schema">File's fields</label>
+            <select name="schema" id="schema" multiple>
+                <option disabled selected value> -- fields -- </option>
+            </select>
+            <button id="remove-fields-btn">Remove fields</button>
+        </form>
+        <input type="text" autocomplete="off" name="textfield" id="csv-file-name" value="new file name" />
+        <input name="" type="button" id="download-btn" value="download">
+
+    </div>
+
+
+
+</body>
+
+</html>
