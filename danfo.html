@@ -4,40 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="danfojs/lib/bundle.js"></script>
+    <script src="libraries/danfojs/lib/bundle.js"></script>
+    <script type="text/javascript" src="libraries/bootstrap-5.2.0-dist/js/bootstrap.min.js"></script>
     <script src="csv.js"></script>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="libraries/bootstrap-5.2.0-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
     <title>Document</title>
 </head>
 
 <body>
-    <div id="title">
-        CSV Fields Removal App
+    <div class="d-flex justify-content-center" id="title">
+        <h1 class="display1">CSV Fields Removal App</h1>
     </div>
-    <div id="instruction"> First upload the CSV file you want to process
-
+    <div class="d-flex justify-content-center mt-3" id="instruction">
+        <h3>1. Upload the CSV file you want to process</h3>
     </div>
-    <div id="input-file-div">
-
-        <input type="file" id="input-file" name="file">
-
+    <div class="d-flex justify-content-center mt-2" id="input-file-div">
+        <input class="btn btn-primary" autocomplete="off" type="file" id="input-file" name="file">
     </div>
 
-    <div id="schema-select">
-        <p>Select fields you want to remove</p>
-        <form action="#">
-            <label for="schema">File's fields</label>
-            <select name="schema" id="schema" multiple>
+    <div class="text-center justify-content-center mt-3 " id="schema-select">
+        <h3>2. Select fields you want to remove</h3>
+        <form action=" #">
+
+            <select class=" form-select d-inline-flex p-2" multiple aria-label="multiple select example" id="schema">
                 <option disabled selected value> -- fields -- </option>
             </select>
-            <button id="remove-fields-btn">Remove fields</button>
+            <button class="btn btn-danger mt-2" id="remove-fields-btn">Remove fields</button>
         </form>
-        <input type="text" autocomplete="off" name="textfield" id="csv-file-name" value="new file name" />
-        <input name="" type="button" id="download-btn" value="download">
-
     </div>
 
-
+    <div class="text-center justify-content-center mt-3">
+        <h3>Download the modified file</h3>
+        <div class="input-group input-group-md justify-content-center mb-3  ">
+            <input placeholder="please insert a file name" type=" text" class="input-group-text mt-1" autocomplete="off"
+                name="textfield" id="csv-file-name" />
+        </div>
+        <input class="btn btn-success mt-1 justify-content-center" type="button" id="download-btn" value="Download">
+    </div>
 
 </body>
 

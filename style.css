@@ -1,7 +1,4 @@
-#title,
-#instruction,
-#schema-select,
-#input-file,
-#input-file-div {
-    text-align: center;
+.form-group select.form-select {
+    display: inline-block;
+    width: 300px;
 }
