@@ -1,5 +1,4 @@
 window.onload = function () {
-    df_import_csvfile = null
     inputFile = document.getElementById("input-file")
     inputFile.addEventListener("change", getDf)
     var submitOption = document.getElementById("remove-fields-btn")
@@ -12,17 +11,34 @@ window.onload = function () {
     downloadBtn.addEventListener("click", function (event) {
         csv_from_df = dfd.toCSV(df_import_csvfile, { header: true })
         newCsvFileName = document.getElementById("csv-file-name").value
-
+        createNewFile(df_import_csvfile, lineTwo)
         downloadCSV(csv_from_df, newCsvFileName)
     })
 }
 async function getDf() {
+    var fileReader = new FileReader();
     const csvFile = inputFile.files[0]
-    dfd.readCSV(csvFile, { header: true, dynamic_typing: true }).then((df) => {
+
+    fileReader.readAsText(csvFile, "UTF-8");
+    df_import_csvfile = null
+    fileReader.onload = function () {
+        var stringData = fileReader.result;
+        arrData = stringData.split(/\r?\n/)
+        arrHeader = arrData[29].split(",")
+        lineTwo = arrData[1]
+        arrNeedData = arrData.slice(30, -1)
+        mapNeedData = arrNeedData.map(l => l.split(","))
+        df = new dfd.DataFrame(mapNeedData, { arrHeader })
+        currentColumns = df.columns
+        objChangeColumns = currentColumns.reduce((accumulator, element, index) => {
+            return { ...accumulator, [element]: arrHeader[index] };
+        }, {});
+        df = df.rename(objChangeColumns)
         df_import_csvfile = df
         showCsvSchema(df_import_csvfile)
 
-    })
+
+    }
 }
 
 function handleSubmitRemoveFields(event) {
@@ -39,7 +55,17 @@ function removeFieldsFromDf(df, columnsToRemove) {
             ({ columns: columnsToRemove, inplace: true });
     }
 }
-function downloadCSV(csv, newCsvFileName) {
+function createNewFile(df, lineTwo) {
+    arrNewFile = new Array()
+    arrNewFile.push(lineTwo)
+    jsonData = dfd.toJSON(df_import_csvfile, { format: 'row' })
+    csvData = dfd.toCSV(df_import_csvfile)
+    arrNewFile.push(csvData)
+    arrNewFile = arrNewFile.join("\n")
+    return arrNewFile
+}
+function downloadCSV(df, newCsvFileName) {
+    csv = createNewFile(df, lineTwo)
     var csvData = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     var csvURL = null;
     if (navigator.msSaveBlob) {
